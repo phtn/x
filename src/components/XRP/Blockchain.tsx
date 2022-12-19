@@ -1,7 +1,10 @@
+import { FC } from "react"
 
-const BlockchainContent = () => {
+const BlockchainContent: FC = () => {
     return (
-        <></>
+        <>
+             
+        </>
     )
 }
 export default BlockchainContent

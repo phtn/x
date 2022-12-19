@@ -6,17 +6,29 @@ import "./CLT.css";
 
 const { TextArea } = Input;
 
-const CLT: FC = () => {
+type CLTPropTypes = {
+  screen: {
+    width: number,
+    height: number
+  }
+}
+
+const CLT: FC<CLTPropTypes> = ({screen}) => {
   const [text, setText] = useState("");
   const [view, setView] = useState("chars");
   let inputRef: any = useRef(null);
 
   const renderView = (param: string) => {
-    switch(param){
-        case 'chars':{ return textAtomizer(text, false)}
-        case 'words':{ return textAtomizer(text, true)}
+    switch (param) {
+      case "chars": {
+        return textAtomizer(text, false);
       }
-  }
+      case "words": {
+        return textAtomizer(text, true);
+      }
+    }
+  };
+
   const handleChange = (event: any) => {
     setText(event.target.value);
   };
@@ -26,49 +38,71 @@ const CLT: FC = () => {
 
   return (
     <>
-      <div style={styles.container}>
-        <div style={styles.title}>
-          <h1 id="title">Information Central Limit Theorem</h1>
+      <div
+        className="container"
+        data-testid="clt-main-container"
+        style={{width: screen.width * 0.9}}
+      >
+        <div className="header">
+          <h1 id="title" className="heading">
+            Central Limit Theorem
+          </h1>
         </div>
-        <Space direction="vertical" style={styles.textArea}>
-          <TextArea
-            value={text}
-            rows={3}
-            maxLength={2000000}
-            size="large"
-            placeholder="type here..."
-            onChange={handleChange}
-            autoFocus={true}
-            wrap="hard"
-            ref={inputRef}
-          />
-          {text && (
-            <Space direction="horizontal" style={styles.menu}>
-              <Button type="dashed" onClick={()=> setView('chars')} >chars</Button>
-              <Button type="dashed" onClick={()=> setView('words')}>words</Button>
-              <Button
-                type="dashed"
-                danger
-                onClick={() => {
-                  setText("");
-                  inputFocus();
-                }}
-              >
-                clear text-area
-              </Button>
-            </Space>
-          )}
-        </Space>
-        <div style={styles.results}>
-          {text && (
-            <>
-              <Table
-                dataSource={renderView(view)}
-                columns={columns}
-                rowKey={(item) => item.symbol}
-              />
-            </>
-          )}
+
+        <div className="sub-container">
+          <Space direction="vertical" style={styles.textArea}>
+            <TextArea
+              value={text}
+              rows={3}
+              maxLength={2000000}
+              size="large"
+              placeholder="Type here... or Paste an entire book..."
+              onChange={handleChange}
+              autoFocus={true}
+              wrap="hard"
+              ref={inputRef}
+              data-testid="text-area"
+            />
+            
+            {text && (
+              <Space direction="horizontal" style={styles.menu}>
+                <Button type="dashed" onClick={() => setView("chars")} disabled={view == 'chars'}>
+                  chars
+                </Button>
+                <Button type="dashed" onClick={() => setView("words")} disabled={view == 'words'}>
+                  words
+                </Button>
+                <Button
+                  type="dashed"
+                  danger
+                  onClick={() => {
+                    setText("");
+                    inputFocus();
+                  }}
+                >
+                  clear text
+                </Button>
+              </Space>
+            )}
+          </Space>
+          <div style={styles.results}>
+            {text && (
+              <>
+                <Table
+                  dataSource={renderView(view)}
+                  columns={columns}
+                  rowKey={(item) => item.symbol}
+                />
+              </>
+            )}
+            {!text && 
+              <div className="clt-svg-container">
+
+                <img src="https://mathigon.org/content/intro-probability/images/densities.svg" alt="clt-img" width={500}/>
+              </div>
+            }
+          </div>
+          
         </div>
       </div>
     </>
@@ -77,24 +111,18 @@ const CLT: FC = () => {
 
 const styles = {
   container: {
-    maxWidth: 600,
-    width: "100%",
-    margin: 5,
+    // width: "100%",
   },
   title: {
-    display: "flex",
-    alignItems: "center",
-    // justifyContent: "center",
-    fontSize: 10,
-    minWidth: 375,
+    fontSize: "24px",
+    border: "border",
+    backgroundColor: 'cornflowerblue'
   },
   textArea: {
-    maxWidth: 600,
     width: "100%",
   },
   menu: {
     display: "flex",
-    // justifyContent: "center",
     alignItems: "center",
     width: "100%",
   },

@@ -1,57 +1,61 @@
-function textAtomizer(args, isWord){
-    let store = []
-    let word = ""
-    let total = 0
-    if (isWord){
-        args += " "
-        for (let i in args){
-            word += args[i]
-            if (args[i] == " "){
-                count(store, clean(word))
-                total += 1
-                word = ""
+"use strict";
+exports.__esModule = true;
+exports.textAtomizer = void 0;
+function textAtomizer(args, isWord) {
+    var store = [];
+    var word = "";
+    var total = 0;
+    if (isWord) {
+        args += " ";
+        for (var i in args) {
+            word += args[i];
+            if (args[i] === " ") {
+                count(store, clean(word));
+                total += 1;
+                word = "";
             }
         }
-    } else {
-        for (let i in args){
-            count(store, args[i])
-            total += 1
+    }
+    else {
+        for (var i in args) {
+            count(store, args[i]);
+            total += 1;
         }
     }
-    
-    rate(store, total)
-    return sort(store)
+    rate(store, total);
+    return sort(store);
 }
-const count = (store, data) => {
-    let itemFound = store.find(item => item.symbol === data)
-    if (itemFound){
-        itemFound.count += 1
-    } else {
-        store.push({symbol: data, count: 1})
+exports.textAtomizer = textAtomizer;
+var count = function (store, data) {
+    var itemFound = store.find(function (item) { return item.symbol === data; });
+    if (itemFound) {
+        itemFound.count += 1;
     }
-}
-const rate = (store, total) => {
-    store.map(item => {
-        Object.assign(item, {rate: (item.count / total).toFixed(5)})
-    })
-}
-const sort = (store) => {
-    let spaceFound = store.find(item => item.symbol === " ")
-    if (spaceFound) spaceFound.symbol = "space"
-    store.sort((a,b) => b.count - a.count)
-    let counter = 0
-    store.map(item => {
-        Object.assign(item, {rank: counter += 1})
-    })
-    return store
-}
-const clean = (str) => {
-    const punctuations = ['.', ',', ':', ';', '!', '?', '.' ]
-    str = str.trim()
-    if (punctuations.includes(str.charAt(str.length-1))){
-        return str.substr(0, str.length-1)
+    else {
+        store.push({ symbol: data, count: 1 });
     }
-    return str
-}
-
-export { textAtomizer }
+};
+var rate = function (store, total) {
+    store.map(function (item) {
+        Object.assign(item, { rate: (item.count / total).toFixed(5) });
+    });
+};
+var sort = function (store) {
+    var spaceFound = store.find(function (item) { return item.symbol === " "; });
+    if (spaceFound)
+        spaceFound.symbol = "space";
+    store.sort(function (a, b) { return b.count - a.count; });
+    var counter = 0;
+    store.map(function (item) {
+        Object.assign(item, { rank: counter += 1 });
+    });
+    return store;
+};
+var clean = function (str) {
+    var punctuations = ['.', ',', ':', ';', '!', '?', '.'];
+    str = str.trim();
+    if (punctuations.includes(str.charAt(str.length - 1))) {
+        return str.substring(0, str.length - 1);
+    }
+    return str;
+};
