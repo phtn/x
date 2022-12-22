@@ -10,9 +10,10 @@ import "./Blockchain.css";
 const Blockchain: FC<ComponentPropTypes> = ({ screen, setComp }) => {
   const [secret, setSecret] = useState<any>();
   const [pub, setPub] = useState<any>();
-  const [status, setStatus] = useState("good");
+  const [status, setStatus] = useState({ name: "good", color: "green" });
   const [send, setSend] = useState(true);
   const [link, setLink] = useState("");
+  const [confirm, setConfirm] = useState("send SOL");
   return (
     <div
       className="container"
@@ -39,38 +40,45 @@ const Blockchain: FC<ComponentPropTypes> = ({ screen, setComp }) => {
         <div className="big-content">
           <Card
             style={{ width: 300 }}
-            //   cover={
-            //     <img
-            //       alt="Solana Card"
-            //       src="https://solana.com/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fdark-horizontal.c3a5eb36.svg&w=384&q=75"
-            //     />
-            //   }
             actions={[
               <Button
                 type="link"
-                onClick={() =>
-                  getSol(secret, setStatus)
+                onClick={() => {
+                  setStatus({ name: "processing", color: "blue" });
+                  getSol(secret)
                     .then(() => {
-                        setStatus("sol received")
-                        setSend(false)
+                      setStatus({ name: "sol received", color: "green" });
+                      setSend(false);
                     })
-                    .catch((error) => console.log(error))
-                }
+                    .catch((error) => {
+                      setStatus({ name: "error", color: "red" });
+                      console.log(error);
+                    });
+                }}
               >
                 get SOL
               </Button>,
               <Button
                 type="link"
                 disabled={send}
-                onClick={() =>
-                  sendSol(secret, setStatus, setLink)
-                    .then(() => setStatus("finished"))
-                    .catch((error) => console.log(error))
-                }
+                onClick={() => {
+                  setStatus({ name: "sending", color: "blue" });
+                  setConfirm("confirm");
+                  sendSol(secret, setLink)
+                    .then(() => {
+                      if (link !== "") {
+                        setStatus({ name: "sent", color: "green" }); 
+                        setConfirm('send SOL')
+                      }
+                    })
+                    .catch((error) => {
+                      setStatus({ name: "error", color: "red" });
+                      console.log(error);
+                    });
+                }}
               >
-                send SOL
+                {confirm}
               </Button>,
-              //   <EllipsisOutlined key="ellipsis" />,
             ]}
           >
             <Meta
@@ -101,7 +109,10 @@ const Blockchain: FC<ComponentPropTypes> = ({ screen, setComp }) => {
 };
 
 type StatusPropTypes = {
-  status: string;
+  status: {
+    name: string;
+    color: string;
+  };
   link: string;
 };
 
@@ -110,12 +121,14 @@ const Status: FC<StatusPropTypes> = ({ status, link }) => {
     <div className="status-container">
       <p className="status-label">STATUS: </p>
       <span className="gap"></span>
-      <Tag color="cyan" className="tag">
-        {status}
+      <Tag color={status.color} className="tag">
+        {status.name}
       </Tag>
       {link ? (
-        <Tag color="blue" className="tag">
-          <a href={link} className="link-tag">scan</a>
+        <Tag color="purple" className="tag">
+          <a href={link} className="link-tag">
+            view
+          </a>
         </Tag>
       ) : null}
     </div>
