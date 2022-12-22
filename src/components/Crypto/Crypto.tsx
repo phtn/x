@@ -3,16 +3,10 @@ import { Button, Select, Spin } from "antd";
 import { FaWindowClose } from "react-icons/fa";
 import axios from "axios";
 import { options } from "./CryptoOptions";
+import { ComponentPropTypes } from "../../ComponentPropTypes";
 import "./Crypto.css";
-type CryptoPropTypes = {
-  screen: {
-    width: number;
-    height: number;
-  };
-  setComp: (comp: string) => void;
-};
 
-const Crypto: FC<CryptoPropTypes> = ({ screen, setComp }) => {
+const Crypto: FC<ComponentPropTypes> = ({ screen, setComp }) => {
   const [base, setBase] = useState("BTC");
   const [qoute, setQoute] = useState("USD");
   const [data, setData] = useState({ rate: 0 });

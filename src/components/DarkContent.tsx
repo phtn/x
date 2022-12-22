@@ -1,8 +1,9 @@
 // import BlockchainContent from './XRP/Blockchain'
 import { FC, useState } from "react";
+import Main from "./Main/Main";
 import CLT from "./CLT/CLT";
 import Crypto from "./Crypto/Crypto";
-import Main from "./Main/Main";
+import Blockchain from "./Blockchain/Blockchain";
 
 type DarkContentPropTypes = {
   screen: {
@@ -13,24 +14,21 @@ type DarkContentPropTypes = {
 
 const DarkContent: FC<DarkContentPropTypes> = ({ screen }) => {
   const [comp, setComp] = useState("main");
-  
 
   const renderComponent = (component: string) => {
     switch (component) {
       case "main":
-        return <Main screen={screen} setComp={setComp} />
+        return <Main screen={screen} setComp={setComp} />;
       case "clt":
         return <CLT screen={screen} setComp={setComp} />;
       case "crypto":
-        return <Crypto screen={screen} setComp={setComp}/>;
+        return <Crypto screen={screen} setComp={setComp} />;
+      case "blockchain":
+        return <Blockchain screen={screen} setComp={setComp} />;
     }
   };
 
-  return (
-    <div style={styles.container}>
-      {renderComponent(comp)}
-    </div>
-  );
+  return <div style={styles.container}>{renderComponent(comp)}</div>;
 };
 const styles = {
   container: {

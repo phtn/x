@@ -3,19 +3,12 @@ import { Input, Table, Space, Button } from "antd";
 import { textAtomizer } from "./CLT_compute.js";
 import columns from "./DataColumns";
 import { FaWindowClose } from "react-icons/fa";
+import { ComponentPropTypes } from "../../ComponentPropTypes.js";
 import "./CLT.css";
 
 const { TextArea } = Input;
 
-type CLTPropTypes = {
-  screen: {
-    width: number;
-    height: number;
-  };
-  setComp: (comp: string) => void
-};
-
-const CLT: FC<CLTPropTypes> = ({ screen, setComp }) => {
+const CLT: FC<ComponentPropTypes> = ({ screen, setComp }) => {
   const [text, setText] = useState("");
   const [view, setView] = useState("chars");
   
@@ -169,9 +162,6 @@ const CLT: FC<CLTPropTypes> = ({ screen, setComp }) => {
 };
 
 const styles = {
-  container: {
-    // width: "100%",
-  },
   title: {
     fontSize: "24px",
     border: "border",

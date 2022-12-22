@@ -1,0 +1,55 @@
+.container {
+    position: absolute;
+    margin-top: -7em;
+    max-width: 700px;
+    background-color: #f6f6f6;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 0.5em;
+}
+.header {
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 0.5em 0.5em 0 0;
+    background-color: #1677ff;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+}
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25%;
+}
+.big-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+}
+.generate-btn {
+    width: 320px;
+}
+.status-container {
+    display: flex;
+    padding: 2px 2px;
+    background-color: #ccc;
+    border-radius: 3px;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+.status-label {
+    font-weight: bolder;
+    color: gray;
+    text-transform: uppercase;
+}
+.tag { 
+    /* width: 60px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+}
+.link-tag {
+    color: inherit;
+}

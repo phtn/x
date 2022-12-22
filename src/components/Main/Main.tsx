@@ -3,16 +3,9 @@ import { FC } from "react";
 import { GoGraph, GoFlame } from "react-icons/go";
 import { RiBitCoinLine } from "react-icons/ri";
 import { GiCrossedChains } from "react-icons/gi";
+import { ComponentPropTypes } from "../../ComponentPropTypes";
 
-type MainPropTypes = {
-  screen: {
-    width: number;
-    height: number;
-  };
-  setComp: (comp: string) => void;
-};
-
-const Main: FC<MainPropTypes> = ({ screen, setComp }) => {
+const Main: FC<ComponentPropTypes> = ({ screen, setComp }) => {
   return (
     <>
       <div
@@ -22,7 +15,7 @@ const Main: FC<MainPropTypes> = ({ screen, setComp }) => {
         <div className="menu">
           <Button
             onClick={() => setComp("clt")}
-            style={{ width: "50%", height: 200, borderRadius: 0 }}
+            style={styles.menuBtn}
           >
             <div>
               <GoGraph size={42} />
@@ -31,7 +24,7 @@ const Main: FC<MainPropTypes> = ({ screen, setComp }) => {
           </Button>
           <Button
             onClick={() => setComp("crypto")}
-            style={{ width: "50%", height: 200, borderRadius: 0 }}
+            style={styles.menuBtn}
           >
             <div>
               <RiBitCoinLine size={42} />
@@ -42,8 +35,8 @@ const Main: FC<MainPropTypes> = ({ screen, setComp }) => {
 
         <div className="menu">
           <Button
-            onClick={() => setComp("main")}
-            style={{ width: "50%", height: 200, borderRadius: 0 }}
+            onClick={() => setComp("blockchain")}
+            style={styles.menuBtn}
           >
             <div>
               <GiCrossedChains size={42} />
@@ -52,7 +45,7 @@ const Main: FC<MainPropTypes> = ({ screen, setComp }) => {
           </Button>
           <Button
             onClick={() => setComp("main")}
-            style={{ width: "50%", height: 200, borderRadius: 0 }}
+            style={styles.menuBtn}
           >
             <div>
               <GoFlame size={42} />
@@ -64,4 +57,12 @@ const Main: FC<MainPropTypes> = ({ screen, setComp }) => {
     </>
   );
 };
+
+const styles = {
+  menuBtn: {
+    width: "50%",
+    height: 200,
+    borderRadius: 0,
+  }
+}
 export default Main;

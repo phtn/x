@@ -1,13 +1,36 @@
 ::-webkit-scrollbar {display:none;}
 .container {
     position: absolute;
-    margin-top: -6em;
+    margin-top: -7em;
     max-width: 700px;
+    background-color: #f6f6f6;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 0.5em;
+}
+.header {
+    border: 1px solid rgba(0,0,0,0);
+    border-radius: 0.5em 0.5em 0 0;
+    background-color: #1677ff;
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+}
+.content {
+    border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25%;
 }
 .menu {
     overflow: scroll;
     height: 40vh;
     margin: 0 auto;
+    color: gray
 }
+.menu-btn {
+    width: 50%;
+    height: 200px;
+    border-radius: 0px;
+}
+
