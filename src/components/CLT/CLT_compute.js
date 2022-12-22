@@ -1,7 +1,7 @@
-"use strict";
+// "use strict";
 exports.__esModule = true;
 exports.textAtomizer = void 0;
-function textAtomizer(args, isWord) {
+function textAtomizer(args, isWord, withSpace) {
     var store = [];
     var word = "";
     var total = 0;
@@ -17,9 +17,17 @@ function textAtomizer(args, isWord) {
         }
     }
     else {
-        for (var i in args) {
-            count(store, args[i]);
-            total += 1;
+        for (var j in args) {
+            if (withSpace) {
+                count(store, args[j]);
+                total += 1;
+            }
+            else {
+                if (args[j] !== " ") {
+                    count(store, args[j]);
+                    total += 1;
+                }
+            }
         }
     }
     rate(store, total);
@@ -37,7 +45,7 @@ var count = function (store, data) {
 };
 var rate = function (store, total) {
     store.map(function (item) {
-        Object.assign(item, { rate: (item.count / total).toFixed(5) });
+        return Object.assign(item, { rate: (item.count / total).toFixed(5) });
     });
 };
 var sort = function (store) {
@@ -47,7 +55,7 @@ var sort = function (store) {
     store.sort(function (a, b) { return b.count - a.count; });
     var counter = 0;
     store.map(function (item) {
-        Object.assign(item, { rank: counter += 1 });
+        return Object.assign(item, { rank: counter += 1 });
     });
     return store;
 };

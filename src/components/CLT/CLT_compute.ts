@@ -1,10 +1,11 @@
+
 type StoreTypes = {
     symbol: string,
     count: number,
     rate?: number,
 }
 
-function textAtomizer(args: any, isWord: boolean) {
+function textAtomizer(args: any, isWord: boolean, withSpace?: boolean ) {
     let store: Array<StoreTypes> = []
     let word = ""
     let total = 0
@@ -19,9 +20,16 @@ function textAtomizer(args: any, isWord: boolean) {
             }
         }
     } else {
-        for (let i in args) {
-            count(store, args[i])
-            total += 1
+        for (let j in args) {
+            if(withSpace){
+                count(store, args[j])
+                total += 1
+            } else {
+                if (args[j] !== " "){
+                    count(store, args[j])
+                    total += 1
+                }
+            }
         }
     }
 

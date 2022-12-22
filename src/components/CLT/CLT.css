@@ -2,13 +2,10 @@
 
 .container {
     position: absolute;
-    margin-top: -8em;
+    margin-top: -7em;
     max-width: 700px;
-    /* min-width: 375px; */
     background-color: #f6f6f6;
-    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    /* padding: 1em; */
     border-radius: 0.5em;
 }
 .sub-container {
@@ -18,17 +15,26 @@
     border: 1px solid rgba(0,0,0,0);
     border-radius: 0.5em 0.5em 0 0;
     background-color: darkcyan;
-    padding-left: 15px
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
 }
 .heading {
     font-size: 1em;
-    color:#f6f6f6
-    /* border: 1px solid red */
+    color:#f6f6f6;
+    float: right;
 }
 .clt-svg-container {
-    /* border: 1px solid red; */
     height: 400px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+    width: 75%;
+    margin: 0 auto;
+    padding-top: 25px;
+}
+.close {
+    margin-left: auto;
+    margin-right: 10px;
+    color: #f6f6f6;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0
 }

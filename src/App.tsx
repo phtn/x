@@ -14,7 +14,7 @@ type FooterPropTypes = {
 }
 function App() {
   const width = window.innerWidth
-  const height = window .innerHeight
+  const height = window.innerHeight
   const [screen, setScreen] = useState({width, height})
 
   useEffect(()=> {

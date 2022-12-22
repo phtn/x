@@ -1,0 +1,13 @@
+::-webkit-scrollbar {display:none;}
+.container {
+    position: absolute;
+    margin-top: -6em;
+    max-width: 700px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 0.5em;
+}
+.menu {
+    overflow: scroll;
+    height: 40vh;
+    margin: 0 auto;
+}
