@@ -88,6 +88,3 @@ const Crypto: FC<ComponentPropTypes> = ({ screen, setComp }) => {
 };
 
 export default Crypto;
-
-// MongoDB password for phtn458 user
-// 5MyqY23whR5Xwn3e

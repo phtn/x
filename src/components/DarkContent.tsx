@@ -4,6 +4,7 @@ import Main from "./Main/Main";
 import CLT from "./CLT/CLT";
 import Crypto from "./Crypto/Crypto";
 import Blockchain from "./Blockchain/Blockchain";
+import Firebase from "./Firebase/Firebase";
 
 type DarkContentPropTypes = {
   screen: {
@@ -13,7 +14,7 @@ type DarkContentPropTypes = {
 };
 
 const DarkContent: FC<DarkContentPropTypes> = ({ screen }) => {
-  const [comp, setComp] = useState("main");
+  const [comp, setComp] = useState("firebase");
 
   const renderComponent = (component: string) => {
     switch (component) {
@@ -25,6 +26,8 @@ const DarkContent: FC<DarkContentPropTypes> = ({ screen }) => {
         return <Crypto screen={screen} setComp={setComp} />;
       case "blockchain":
         return <Blockchain screen={screen} setComp={setComp} />;
+      case "firebase":
+        return <Firebase screen={screen} setComp={setComp} />;
     }
   };
 

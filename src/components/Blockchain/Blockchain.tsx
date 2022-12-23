@@ -63,16 +63,16 @@ const Blockchain: FC<ComponentPropTypes> = ({ screen, setComp }) => {
                 disabled={send}
                 onClick={() => {
                   setStatus({ name: "sending", color: "blue" });
-                  setConfirm("confirm");
+                  setConfirm("confirm send");
                   sendSol(secret, setLink)
                     .then(() => {
-                      if (link !== "") {
-                        setStatus({ name: "sent", color: "green" }); 
-                        setConfirm('send SOL')
-                      }
+                      setStatus({ name: "sent", color: "green" });
+                      setSend(true);
+                      setConfirm("sent");
                     })
                     .catch((error) => {
                       setStatus({ name: "error", color: "red" });
+                      setConfirm("try again");
                       console.log(error);
                     });
                 }}
