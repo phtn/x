@@ -33,7 +33,6 @@
     align-items: center;
     justify-content: space-around;
     font-size: 14px;
-    /* color: gray */
 }
 .fetch-content {
     display: flex;
@@ -43,4 +42,10 @@
 }
 .fetch-btn {
     width: 200px;
+}
+.success-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px;
 }

@@ -32,7 +32,7 @@ const FirebaseProduct: FC<ComponentPropTypes> = ({ screen, setComp }) => {
     const items: Array<object> = [];
     setSpin(true);
 
-    // Firestore Querry
+    // Firestore Query
     const querySnapshot = await getDocs(collection(db, "products"));
     querySnapshot.forEach((doc) => {
       items.push(doc.data());
@@ -89,7 +89,6 @@ const FirebaseProduct: FC<ComponentPropTypes> = ({ screen, setComp }) => {
                   data={data.filter((item: any) => item.make === "razer")}
                 />
               ),
-
               disabled: tabDisabled,
             },
             {
@@ -144,7 +143,7 @@ const ProductTable: FC<ProductTablePropTypes> = ({ data }) => {
       <Table
         columns={columns}
         dataSource={data}
-        rowKey={(item: any) => item.model}
+        rowKey={(item: any) => item.id}
       />
     </div>
   ) : null;

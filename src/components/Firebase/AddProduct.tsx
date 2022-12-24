@@ -1,39 +1,57 @@
-import { Button, Checkbox, Form, Input, Select } from "antd";
-import { FC } from "react";
+import { Alert, Button, Checkbox, Form, Input, Select, Spin } from "antd";
+import { createRef, FC, useState } from "react";
 import { collection, getDocs, addDoc } from "firebase/firestore/lite";
 import { db } from "../../db/db";
+import type { FormInstance } from "antd/es/form";
 
 type AddProductPropTypes = {
   setData: Function;
+};
+type AddAnotherItemPropType = {
+  setActiveForm: Function;
 };
 
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 const AddProduct: FC<AddProductPropTypes> = ({ setData }) => {
-  const [form] = Form.useForm();
+  const formRef = createRef<FormInstance>();
+  const [spin, setSpin] = useState(false);
+  const [activeForm, setActiveForm] = useState(true);
 
+  // * Wrtie to Firestore
   const writeDoc = async (data: any) => {
-    await addDoc(collection(db, "products"), data).then(async () => {
-      let items: Array<object> = [];
-      const querySnapshot = await getDocs(collection(db, "products"));
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
+    await addDoc(collection(db, "products"), data)
+      .then(async () => {
+        // * Get docs to update products table
+        let items: Array<object> = [];
+        const querySnapshot = await getDocs(collection(db, "products"));
+        querySnapshot.forEach((doc) => {
+          items.push(doc.data());
+        });
+        setData(items);
+      })
+      .finally(() => {
+        setSpin(false);
+        setActiveForm(false);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      setData(items);
-    });
   };
   const onFinish = (values: any) => {
+    setSpin(true);
     writeDoc(values);
+    formRef.current!.resetFields();
   };
   const onReset = () => {
-    form.resetFields();
+    formRef.current!.resetFields();
   };
   const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+    // console.log("Failed:", errorInfo);
   };
 
-  return (
+  return activeForm ? (
     <div className="product-content">
       <Form
         name="basic"
@@ -43,7 +61,7 @@ const AddProduct: FC<AddProductPropTypes> = ({ setData }) => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
-        form={form}
+        ref={formRef}
       >
         <Form.Item
           label="Make"
@@ -103,14 +121,47 @@ const AddProduct: FC<AddProductPropTypes> = ({ setData }) => {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit" style={styles.btn}>
-            Submit
-          </Button>
-          <Button htmlType="button" onClick={onReset}>
+          {spin ? (
+            <Spin style={styles.submitElements} />
+          ) : (
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={styles.submitElements}
+            >
+              Submit
+            </Button>
+          )}
+          <Button htmlType="button" onClick={onReset} style={styles.btn}>
             Reset
           </Button>
         </Form.Item>
       </Form>
+    </div>
+  ) : (
+    <AddAnotherItem setActiveForm={setActiveForm} />
+  );
+};
+
+const AddAnotherItem: FC<AddAnotherItemPropType> = ({ setActiveForm }) => {
+  return (
+    <div>
+      <div className="success-content">
+        <Alert
+          type="success"
+          message="Item Successfully Added!"
+          style={styles.successElements}
+        />
+      </div>
+      <div className="success-content">
+        <Button
+          type="primary"
+          onClick={() => setActiveForm(true)}
+          style={styles.successElements}
+        >
+          Add Another Item?
+        </Button>
+      </div>
     </div>
   );
 };
@@ -129,8 +180,15 @@ const styles = {
     height: "200px",
     paddingTop: 60,
   },
+  submitElements: {
+    width: 100,
+  },
+  successElements: {
+    width: 180,
+  },
   btn: {
-    marginRight: 10,
+    marginLeft: 10,
+    width: 100,
   },
 };
 export default AddProduct;
