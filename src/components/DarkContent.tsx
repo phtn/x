@@ -14,7 +14,7 @@ type DarkContentPropTypes = {
 };
 
 const DarkContent: FC<DarkContentPropTypes> = ({ screen }) => {
-  const [comp, setComp] = useState("firebase");
+  const [comp, setComp] = useState("main");
 
   const renderComponent = (component: string) => {
     switch (component) {

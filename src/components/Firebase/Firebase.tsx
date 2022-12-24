@@ -7,6 +7,7 @@ import { Button, Spin, Table, Tabs } from "antd";
 import { getDocs, collection } from "firebase/firestore/lite";
 import { db } from "../../db/db";
 import columns from "./TableColumns";
+import AddProduct from "./AddProduct";
 import "./Firebase.css";
 
 type ItemLabelPropTypes = {
@@ -28,14 +29,14 @@ const FirebaseProduct: FC<ComponentPropTypes> = ({ screen, setComp }) => {
   };
 
   const fetchData = async () => {
-    setSpin(true);
     const items: Array<object> = [];
+    setSpin(true);
+
+    // Firestore Querry
     const querySnapshot = await getDocs(collection(db, "products"));
     querySnapshot.forEach((doc) => {
-      //   console.log(`${doc.id} => ${doc.data()}`);
       items.push(doc.data());
     });
-    // console.log(items);
     setData(items);
     setTabDisabled(false);
     setSpin(false);
@@ -64,7 +65,7 @@ const FirebaseProduct: FC<ComponentPropTypes> = ({ screen, setComp }) => {
         </button>
       </div>
 
-      <div className="product-content">
+      <div className="product-container">
         <Tabs
           className="tabs"
           activeKey={activeKey}
@@ -104,7 +105,7 @@ const FirebaseProduct: FC<ComponentPropTypes> = ({ screen, setComp }) => {
             {
               label: <ItemLabel icon={<RiAddLine />} name="Add" />,
               key: "4",
-              children: "add",
+              children: <AddProduct setData={setData} />,
               disabled: tabDisabled,
             },
           ]}
@@ -139,11 +140,13 @@ const ItemLabel: FC<ItemLabelPropTypes> = ({ name, icon }) => {
 };
 const ProductTable: FC<ProductTablePropTypes> = ({ data }) => {
   return data.length ? (
-    <Table
-      columns={columns}
-      dataSource={data}
-      rowKey={(item: any) => item.model}
-    />
+    <div className="product-content">
+      <Table
+        columns={columns}
+        dataSource={data}
+        rowKey={(item: any) => item.model}
+      />
+    </div>
   ) : null;
 };
 export default FirebaseProduct;

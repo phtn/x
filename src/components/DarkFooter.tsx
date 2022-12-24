@@ -19,7 +19,7 @@ const DarkFooter: FC<DarkFooterPropTypes> = ({ title }) => {
 const styles = {
   container: {
     color: "papayawhip",
-    backgroundColor: "darkcyan",
+    backgroundColor: "#1677ff",
     height: "100%",
     justifyContent: "center",
     alignItems: "center",
