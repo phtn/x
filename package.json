@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@react-firebase/database": "^0.3.11",
+    "@solana/buffer-layout": "^4.0.1",
     "@solana/web3.js": "^1.70.3",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^13.0.0",

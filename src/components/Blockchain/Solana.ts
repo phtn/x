@@ -1,4 +1,4 @@
-// const web3 = require('@solana/web3.js')
+// eslint-disable-next-line
 import * as web3 from '@solana/web3.js'
 
 const PROGRAM_ADDRESS = 'ChT1B39WKLS8qUrkLvFDXMhEJ4F1XZzwUNHUt4AU9aVa'

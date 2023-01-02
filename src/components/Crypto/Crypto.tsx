@@ -12,7 +12,7 @@ const Crypto: FC<ComponentPropTypes> = ({ screen, setComp }) => {
   const [data, setData] = useState({ rate: 0 });
   const [loading, setLoading] = useState(false)
 
-  async function fetchExchangeRate() {
+  function fetchExchangeRate() {
     setLoading(true)
     axios
       .get(`https://rest.coinapi.io/v1/exchangerate/${base}/${qoute}?`, {

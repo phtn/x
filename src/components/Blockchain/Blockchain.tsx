@@ -2,10 +2,10 @@ import { Avatar, Button, Card, Divider, Tag } from "antd";
 import { FC, useState } from "react";
 import { FaWindowClose } from "react-icons/fa";
 import { ComponentPropTypes } from "../../ComponentPropTypes";
-import { generateKeypair, getSol, sendSol } from "./Solana";
 import Meta from "antd/es/card/Meta";
-
 import "./Blockchain.css";
+// eslint-disable-next-line
+import { generateKeypair, getSol, sendSol } from "./Solana";
 
 const Blockchain: FC<ComponentPropTypes> = ({ screen, setComp }) => {
   const [secret, setSecret] = useState<any>();

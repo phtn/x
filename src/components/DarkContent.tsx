@@ -36,7 +36,8 @@ const DarkContent: FC<DarkContentPropTypes> = ({ screen }) => {
 const styles = {
   container: {
     color: "#243447",
-    backgroundColor: "#666",
+    // backgroundColor: "#666",
+    backgroundColor: "rgb(22 27 25)",
     height: "100%",
     justifyContent: "center",
     display: "flex",
